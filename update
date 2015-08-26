@@ -1,0 +1,83 @@
+#!/bin/bash
+#Program: update computer
+#Author: HsuTing(hsuting@gmail.com)
+#History: 2015.08.26 
+
+#commad list
+cmd_list=(-ud -ug -du -ar)
+
+#chekc if argument is in commad list
+check () {
+  retval=false
+
+  if [ $# != 0 ]; then
+    for cmd in ${cmd_list[*]}; do
+      if [ $1 = ${cmd} ]; then
+        retval=true
+      fi
+    done
+  fi
+
+  echo $retval
+}
+check=$(check $1)
+
+#commad exacute
+cmd_exac () {
+  case $1 in
+    (-ud)
+      sudo apt-get update
+      ;;
+    (-ug)
+      sudo apt-get upgrade
+      ;;
+    (-du)
+      sudo apt-get dist-upgrade
+      ;;
+    (-ar)
+      sudo apt-get autoremove
+      ;;
+  esac
+}
+
+#default
+if [ $# = 0 ]; then
+  sudo apt-get update
+  sudo apt-get upgrade
+  sudo apt-get dist-upgrade
+  sudo apt-get autoremove
+
+#help
+elif [ $1 = -h ] && [ $# = 1 ]; then
+  echo
+  echo "This command will exacute update, upgrade, dist-upgrade,"
+  echo "autoremove in default."
+  echo
+  echo "-h		:help"
+  echo "-ud -ug -du -ar"
+  echo " 		:update, upgrade, dist-upgrade, autoremove"
+  echo
+
+#exacute command
+elif [ $check = true ]; then
+  for argu in $*; do
+    check=$(check ${argu})
+    if [ $check = false ]; then
+      break
+    fi
+  done
+
+  if [ $check = true ]; then
+    for argu in $*; do
+      cmd_exac ${argu}
+    done
+  else
+    echo error: not find $@
+    echo please input -h for help
+  fi
+
+#not find
+else
+  echo error: not find $@
+  echo please input -h for help
+fi

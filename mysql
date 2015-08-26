@@ -1,0 +1,24 @@
+#!/bin/bash
+#Program: Enter to mysql
+#Author: HsuTing(hsuting@gmail.com)
+#History: 2015.08.26 
+
+#default
+if [ $# = 0 ]; then
+  mysql -u root -p
+
+#help
+elif [ $1 = -h ] && [ $# = 1 ]; then
+  echo
+  echo This command do not need argument.
+  echo
+
+#user name
+elif [ $# = 1 ]; then
+  mysql -u $1 -p
+
+#not find in command
+else
+  echo error: not find $@
+  echo please input -h for help
+fi
