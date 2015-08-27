@@ -1,7 +1,7 @@
 #!/bin/bash
 #Program: update computer
 #Author: HsuTing(hsuting@gmail.com)
-#History: 2015.08.26 
+#History: 2015.08.27 
 
 #commad list
 cmd_list=(-ud -ug -du -ar)
@@ -26,15 +26,27 @@ check=$(check $1)
 cmd_exac () {
   case $1 in
     (-ud)
+      echo
+      echo "update"
+      echo
       sudo apt-get update
       ;;
     (-ug)
+      echo
+      echo "upgrade"
+      echo
       sudo apt-get upgrade
       ;;
     (-du)
+      echo
+      echo "dist-upgrade"
+      echo
       sudo apt-get dist-upgrade
       ;;
     (-ar)
+      echo
+      echo "autoremove"
+      echo
       sudo apt-get autoremove
       ;;
   esac
@@ -42,9 +54,21 @@ cmd_exac () {
 
 #default
 if [ $# = 0 ]; then
+  echo
+  echo "update"
+  echo
   sudo apt-get update
+  echo
+  echo "upgrade"
+  echo
   sudo apt-get upgrade
+  echo
+  echo "dist-upgrade"
+  echo
   sudo apt-get dist-upgrade
+  echo
+  echo "autoremove"
+  echo
   sudo apt-get autoremove
 
 #help
