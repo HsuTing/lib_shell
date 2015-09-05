@@ -1,0 +1,26 @@
+#!/bin/bash
+#Program: resize picture
+#Author: HsuTing
+#reference: http://www.linuxidc.com/Linux/2010-04/25292.htm
+#History: 2015.09.05
+
+#for all
+if [ $# = 0 ]; then
+  echo "resize image who is bigger than 100k"
+  for item in `find *.jpg -size +100k`; do
+    convert ${item} -resize 80% ${item}
+    echo "resize image ${item} to 80%"
+  done
+  ls -l
+
+#for anyone
+else
+  for item in $*; do
+    if [ item != resize ]; then
+      convert ${item} -resize 80% ${item}
+      echo "resize image ${item} to 80%"
+      ls ${item} -l
+      echo
+    fi
+  done
+fi
